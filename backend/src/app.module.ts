@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -14,11 +15,11 @@ import { UserModule } from './users/users.module';
     username: 'postgres',
     password: 'password',
     database: 'mindtech_assignment',
-    entities: [],
+    entities: [User],
     synchronize: true,
   }),
     AuthModule,
-    UserModule,
+    UsersModule,
 ],
   controllers: [AppController],
   providers: [AppService],
