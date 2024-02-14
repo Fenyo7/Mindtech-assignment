@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { PokemonModule } from './pokemon/pokemon.module';
+import { Pokemon } from './pokemon/pokemon.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { PokemonModule } from './pokemon/pokemon.module';
     username: 'postgres',
     password: 'password',
     database: 'mindtech_assignment',
-    entities: [User],
+    entities: [User, Pokemon],
     synchronize: true,
   }),
     AuthModule,

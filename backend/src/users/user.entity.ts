@@ -12,6 +12,6 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Pokemon, caughtPokemon => caughtPokemon.user)
-  caughtPokemons: Pokemon[];
+  @OneToMany(() => Pokemon, pokemon => pokemon.user)
+  pokemons: Pokemon[];
 }

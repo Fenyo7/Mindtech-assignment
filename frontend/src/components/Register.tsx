@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Register clicked');
+    try {
+      const response = await fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        navigate('/login');
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
   };
 
   return (
@@ -34,6 +52,9 @@ const Register: React.FC = () => {
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md">
           Register
         </button>
+        <p className="mt-4 text-center">
+          Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
+        </p>
       </form>
     </div>
   );

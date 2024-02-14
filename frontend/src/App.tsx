@@ -1,14 +1,19 @@
 import React from 'react';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <Login />
-      {/* Uncomment below line to test register component */}
-      <Register />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

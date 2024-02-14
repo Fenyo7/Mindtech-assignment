@@ -12,6 +12,6 @@ export class Pokemon {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, (user) => user.caughtPokemons)
+  @ManyToOne(() => User, (user) => user.pokemons)
   user: User;
 }

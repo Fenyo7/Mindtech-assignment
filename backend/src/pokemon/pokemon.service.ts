@@ -2,18 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pokemon } from './pokemon.entity';
-import Pokedex from 'pokedex-promise-v2';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PokemonService {
-  private pokedex = new Pokedex();
+  private pokedex: any;
 
   constructor(
     @InjectRepository(Pokemon)
     private pokemonRepository: Repository<Pokemon>,
     private usersService: UsersService,
-  ) {}
+  ) {
+    this.initializePokedex();
+  }
+
+  async initializePokedex() {
+    const Pokedex = (await import('pokedex-promise-v2')).default;
+    this.pokedex = new Pokedex();
+  }
 
   async catchPokemon(userId: number, pokemonNameOrId: string): Promise<Pokemon> {
     const pokemonData = await this.pokedex.getPokemonByName(pokemonNameOrId);
