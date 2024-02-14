@@ -16,19 +16,15 @@ import { CatchPokemonDto } from './dtos/catch-pokemon.dto';
 export class PokemonController {
   constructor(private pokemonService: PokemonService) {}
 
-  @Post(':id')
+  @Post('catch/:pokemonNameOrId')
   @UseGuards(AuthGuard('jwt'))
   async catchPokemon(
     @Req() req,
-    @Param('id') pokemonId: number,
-    @Body() catchPokemonDto: CatchPokemonDto,
+    @Param('pokemonNameOrId') pokemonNameOrId: string,
   ) {
     const userId = req.user.id;
-    return this.pokemonService.catchPokemon(
-      userId,
-      pokemonId,
-      catchPokemonDto.name,
-    );
+
+    return this.pokemonService.catchPokemon(userId, pokemonNameOrId);
   }
 
   @Delete(':id')
